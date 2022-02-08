@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useContext } from "react";
+import { Button, Paper } from "@mui/material";
+
+import "./App.css";
+import CustomTheme from "./components/theme/theme";
+import AuthContext from "./context/AuthContext";
+
 
 function App() {
+  const [dark, setDark] = useState(true);
+  const {a, setA} = useContext(AuthContext);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CustomTheme dark={dark}>
+      <div className="App">
+
+      
+        <Paper>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              console.log(a);
+              setDark(!dark);
+            }}
+          >
+            Toggle dark mode
+          </Button>
+        </Paper>
+
+
+
+      </div>
+    </CustomTheme>
   );
 }
 
