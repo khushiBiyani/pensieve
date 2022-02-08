@@ -16,7 +16,7 @@ ReactDOM.render(
             <Route path="home" element={<Home />}>
               <Route path=":homeNumber" element={<Home />} />
             </Route>
-            <Route path="about" element={<About />} />
+            <Route path="admin/info" element={<About />} />
           </Route>
         </Routes>
       </AuthContextProvider>
