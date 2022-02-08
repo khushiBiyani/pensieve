@@ -229,7 +229,7 @@ function Sidebar(props) {
   // SIDEBAR
   return (
     <Box ref={mainPanel}>
-      <Box display={{ sm: "none", xl: "block" }} position="fixed">
+      <Box display={{ sm: "none", lg: "block" }} position="fixed">
         <Box
           bg={sidebarBg}
           transition={variantChange}
@@ -393,17 +393,11 @@ export function SidebarResponsive(props) {
                 {/* {typeof prop.icon === "string" ? (
                   <Icon>{prop.icon}</Icon>
                 ) : ( */}
-                <IconBox
-                  bg={inactiveBg}
-                  color="teal.300"
-                  h="30px"
-                  w="30px"
-                  me="12px"
-                >
+                <IconBox bg="teal.300" color="cyan" h="30px" w="30px" me="12px">
                   {prop.icon}
                 </IconBox>
                 {/* )} */}
-                <Text color={inactiveColor} my="auto" fontSize="sm">
+                <Text color="white" my="auto" fontSize="sm">
                   {document.documentElement.dir === "rtl"
                     ? prop.rtlName
                     : prop.name}
@@ -426,9 +420,9 @@ export function SidebarResponsive(props) {
     hamburgerColor = "white";
   }
   var brand = (
-    <Box pt={"35px"} mb="8px">
+    <Box pt={"25px"} mb="12px">
       <Link
-        href={`${process.env.PUBLIC_URL}/#/`}
+        href={"/"}
         target="_blank"
         display="flex"
         lineHeight="100%"
@@ -436,20 +430,26 @@ export function SidebarResponsive(props) {
         fontWeight="bold"
         justifyContent="center"
         alignItems="center"
-        fontSize="11px"
+        fontSize="30px"
       >
-        <CreativeTimLogo w="32px" h="32px" me="10px" />
-        <Text fontSize="sm" mt="3px">
-          {logoText}
+        {/* <CreativeTimLogo w="32px" h="32px" me="10px" /> */}
+        <i
+          class="fas fa-graduation-cap"
+          style={{ color: "white" }}
+          size="lg"
+        ></i>
+        &nbsp;
+        <Text fontSize="" mt="3px" color="white">
+          {"Pensieve"}
         </Text>
       </Link>
       <Separator></Separator>
     </Box>
   );
-
   // SIDEBAR
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+
   // Color variables
   return (
     <Flex
@@ -482,6 +482,7 @@ export function SidebarResponsive(props) {
             sm: "16px",
           }}
           borderRadius="16px"
+          backgroundColor="black"
         >
           <DrawerCloseButton
             _focus={{ boxShadow: "none" }}
@@ -493,7 +494,7 @@ export function SidebarResponsive(props) {
               <Stack direction="column" mb="40px">
                 <Box>{links}</Box>
               </Stack>
-              <SidebarHelp></SidebarHelp>
+              {/* <SidebarHelp></SidebarHelp> */}
             </Box>
           </DrawerBody>
         </DrawerContent>
