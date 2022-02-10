@@ -6,7 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 // Add different names like neutral and their primary color will be used.
 const CustomTheme = (props) => {
   const lightTheme = createTheme({
-    palette: {          
+    palette: {
       type: "light",
       primary: {
         main: "#0971f1",
@@ -28,7 +28,7 @@ const CustomTheme = (props) => {
         main: "#003300",
       },
       neutral: {
-        main: "#14718B",
+        main: "#464445",
         contrastText: "#fff",
       },
       background: {
