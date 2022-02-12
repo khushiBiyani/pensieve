@@ -8,7 +8,7 @@ import "./App.css";
 
 import Navbar from "./components/Navbar/Navbar";
 import theme from "./components/Sidebar/theme/theme";
-import routes from "./routes";
+import { currentRoutes, nonCurrentRoutes } from "./routes";
 import CustomTheme from "./components/theme/theme";
 import AuthContext from "./context/AuthContext";
 import Sidebar from "./components/Sidebar/Sidebar";
@@ -16,11 +16,15 @@ import Login from "./pages/login";
 
 function Dashboard() {
   const { onOpen } = useDisclosure();
+  const { currentBatch } = useContext(AuthContext);
   return (
     <Grid container spacing={1}>
       <Grid item xs={0} sm={3}>
         <ChakraProvider theme={theme}>
-          <Sidebar routes={routes} display="none"></Sidebar>
+          <Sidebar
+            routes={currentBatch ? currentRoutes : nonCurrentRoutes}
+            display="none"
+          ></Sidebar>
         </ChakraProvider>
       </Grid>
 

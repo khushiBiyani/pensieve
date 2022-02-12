@@ -1,9 +1,16 @@
+import AuthContext from "../context/AuthContext";
+import { useContext } from "react";
 import backgroundImage from "../resources/background.jpg";
 import Google from "../resources/google.png";
 import Github from "../resources/github.png";
 import { Box, Grid, Typography, Button } from "@mui/material";
 
 export default function Login() {
+  const { setLoggedIn } = useContext(AuthContext);
+  const onClick = () => {
+    setLoggedIn(true);
+  };
+
   return (
     <Box
       sx={{
@@ -73,6 +80,7 @@ export default function Login() {
             variant="contained"
             color="neutral"
             sx={{ padding: "10px 20px", borderRadius: "15px" }}
+            onClick={onClick}
           >
             <img src={Google} style={{ height: "25px" }} alt="google"></img>
             <Typography
