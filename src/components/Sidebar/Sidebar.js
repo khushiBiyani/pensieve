@@ -16,9 +16,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import IconBox from "../Icons/IconBox";
-import { CreativeTimLogo } from "../Icons/Icons";
 import { Separator } from "../Separator/Separator";
-import { SidebarHelp } from "./SidebarHelp";
 import PropTypes from "prop-types";
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";

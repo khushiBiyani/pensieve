@@ -7,44 +7,38 @@
 // import SignIn from "views/Pages/SignIn.js";
 // import SignUp from "views/Pages/SignUp.js";
 
-var dashRoutes = [
+var currentRoutes = [
   {
-    path: "/info",
+    path: "/about",
     name: "About Me",
     icon: <i class="fas fa-user" />,
     // component: Dashboard,
     layout: "/admin",
   },
   {
-    path: "/photos",
+    path: "/photoalbum",
     name: "Photo Album",
     icon: <i class="fas fa-images"></i>,
     // component: Tables,
     layout: "/admin",
   },
+
   {
-    path: "/write",
-    name: "New Testimonial",
-    icon: <i class="fas fa-edit"></i>,
-    // component: Billing,
-    layout: "/admin",
-  },
-  {
-    path: "/viewyou",
+    path: "/testbyyou",
     name: "Testimonials by You",
     icon: <i class="fas fa-sticky-note"></i>,
     // component: RTLPage,
     layout: "/admin",
   },
   {
-    path: "/viewfor",
+    path: "/testforyou",
     name: "Testimonials for You",
     icon: <i class="far fa-sticky-note"></i>,
     // component: RTLPage,
     layout: "/admin",
   },
   {
-    path: "/preview",
+    path: "/bookpreview",
     name: "Yearbook Preview",
     icon: <i class="fas fa-layer-group"></i>,
     // component: RTLPage,
@@ -65,4 +59,14 @@ var dashRoutes = [
     layout: "/admin",
   },
 ];
-export default dashRoutes;
+var nonCurrentRoutes = [
+  {
+    path: "/testbyyou",
+    name: "Testimonials By You",
+    icon: <i class="fas fa-sticky-note"></i>,
+    // component: RTLPage,
+    layout: "/admin",
+  },
+];
+export default currentRoutes;
+export { currentRoutes, nonCurrentRoutes };
