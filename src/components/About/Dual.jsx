@@ -4,9 +4,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function Branch({
+export default function Dual({
   onChange,
-  value
+  value,
 }) {
 
   const [open, setOpen] = React.useState(false);
@@ -21,18 +21,18 @@ export default function Branch({
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="branch">Branch</InputLabel>
+        <InputLabel id="dual">Dual</InputLabel>
         <Select
-          labelId="branch"
-          id="branch"
+          labelId="dual"
+          id="dual"
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
           value={value}
-          label="Branch"
+          label="Dual"
           onChange={onChange}
-          required
         >
+          <MenuItem value={''}>None</MenuItem>
           <MenuItem value={'A1'}>B.E. Chemical</MenuItem>
           <MenuItem value={'A2'}>B.E. Civil</MenuItem>
           <MenuItem value={'A7'}>B.E. Computer Science</MenuItem>

@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material'
 import React from 'react'
 
 export default function Nick({
@@ -6,17 +7,16 @@ export default function Nick({
   }) {
   return (
     <div className="field">
-      <label htmlFor="nick">
+      {/* <label htmlFor="nick">
         Nick name:
-      </label>
-      <input 
+      </label> */}
+      <TextField 
         id="nick" 
-        type="text" 
+        label="Nick name"
         onChange={onChange} 
         maxlength="25" 
         value={value} 
-        placeholder="(Optional)" 
-        style={{color:"black"}}/>
+        placeholder="(Optional)"/>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material'
 import React from 'react'
 
 export default function Bitsid({
@@ -6,17 +7,16 @@ export default function Bitsid({
   }) {
   return (
     <div className="field">
-      <label htmlFor="bitsid">
+      {/* <label htmlFor="bitsid">
         Bits ID:
-      </label>
-      <input 
-        id="bitsid" 
-        type="text" 
+      </label> */}
+      <TextField 
+        id="bitsid"
+        label="Bits ID"  
         onChange={onChange} 
         maxlength="13" 
         value={value} 
         placeholder="20XXAXPSXXXXH" 
-        style={{color:"black"}}
         required/>
     </div>
   )

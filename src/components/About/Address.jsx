@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material'
 import React from 'react'
 
 export default function Address({
@@ -6,18 +7,18 @@ export default function Address({
   }) {
   return (
     <div className="field">
-    <label htmlFor="address">
+    {/* <label htmlFor="address">
       Address:
-    </label>
-    <input 
+    </label> */}
+    <TextField 
       id="address" 
-      type="textarea"
+      label="Address"
       onChange={onChange} 
       maxLength="255" 
-      value={value} 
-      style={{color:"black"}}
+      value={value}
       placeholder="Home address" 
-      rows='3'
+      multiline
+      maxRows={4}
       required/>
   </div>
   )
