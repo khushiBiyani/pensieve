@@ -1,4 +1,4 @@
-.card {
+.about-card {
   height: 700px;
   padding: 15px;
   margin-top: 40px;
@@ -9,7 +9,7 @@
   background: #fff;
 }
 
-form {
+form.about {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,12 +21,8 @@ form {
   display: flex;
   flex-direction: row;
 }
-.field {
-  margin: 5px;
-  display: flex;
-  flex-direction: column;
-}
-input[type="file"] {
+
+input[type="file"].about-file-input {
   display: none;
 }
 
@@ -67,28 +63,6 @@ input[type="file"] {
 .img-upload:hover:before {
   opacity: 1;
 }
-img {
-  width: auto;
-  height: 100%;
-}
-
-label {
-  text-transform: uppercase;
-  font-weight: 700;
-  color: #676767;
-}
-
-input {
-  border-radius: 15px;
-  border: 1px solid #b7b7b7;
-  padding: 5px 5px 5px 10px;
-  font-size: 18px;
-  transition: 0.2s;
-}
-input:focus {
-  outline: none;
-  border: 1px solid #64d488;
-}
 
 .name,
 .email {
@@ -103,7 +77,7 @@ input:focus {
   font-weight: 700;
 }
 
-button {
+button.about-button {
   position: relative;
   color: #054231;
   letter-spacing: 1px;
@@ -128,7 +102,7 @@ button {
   background: #64d488;
 }
 
-button:hover {
+button.about-button:hover {
   color: #fff;
   box-shadow: 0px 0px 20px 0px #63d3a6;
 }

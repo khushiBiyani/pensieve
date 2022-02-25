@@ -6,10 +6,10 @@ export default function Edit({
 }
 ) {
   return (
-    <div className="card">
-      <form onSubmit={onSubmit}>
+    <div className="about-card">
+      <form className="about" onSubmit={onSubmit}>
           {children}
-        <button type="submit" className="save">Save </button>
+        <button type="submit" className="about-button">Save </button>
       </form>
     </div>
   )

@@ -9,7 +9,7 @@ export default function ImgUpload({
       <div className="img-wrap img-upload" >
         <img for="photo-upload" src={src}/>
       </div>
-      <input id="photo-upload" type="file" onChange={onChange}/> 
+      <input className="about-file-input" id="photo-upload" type="file" onChange={onChange}/> 
     </label>
   )
 }
