@@ -11,6 +11,7 @@ import TestForYou from "./pages/testForYou";
 import TestByYou from "./pages/testByYou";
 import About from "./pages/About";
 import RequestTest from "./pages/request";
+import Logout from "./pages/Logout";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -25,6 +26,7 @@ ReactDOM.render(
             <Route path="admin/bookpreview" element={<Preview />} />
             <Route path="admin/share" element={<ShareLink />} />
             <Route path="admin/request" element={<RequestTest />} />
+            <Route path="admin/logout" element={<Logout />} />
           </Route>
         </Routes>
       </AuthContextProvider>

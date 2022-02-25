@@ -58,6 +58,12 @@ var currentRoutes = [
     // component: RTLPage,
     layout: "/admin",
   },
+  {
+    path: "/logout",
+    name: "Logout",
+    icon: <i class="fas fa-right-from-bracket"></i>,
+    layout: "/admin",
+  },
 ];
 var nonCurrentRoutes = [
   {
@@ -65,6 +71,12 @@ var nonCurrentRoutes = [
     name: "Testimonials By You",
     icon: <i class="fas fa-sticky-note"></i>,
     // component: RTLPage,
+    layout: "/admin",
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    icon: <i class="fas fa-right-from-bracket"></i>,
     layout: "/admin",
   },
 ];
