@@ -14,8 +14,8 @@ export default function Profile({
     nick
 }) {
   return (
-    <div className="card">
-      <form onSubmit={onSubmit}>
+    <div className="about-card">
+      <form className="about" onSubmit={onSubmit}>
         <label className="custom-file-upload fas">
           <div className="img-wrap" >
             <img for="photo-upload" src={src}/>
@@ -32,7 +32,7 @@ export default function Profile({
         
         <Typography className="phno">Phone number: {phno}</Typography>
         {nick?(<Typography className="nick">Nickname: {nick}</Typography>):(<div></div>)}
-        <button type="submit" className="edit">Edit Profile </button>
+        <button type="submit" className="about-button">Edit Profile </button>
       </form>
     </div>
   )
