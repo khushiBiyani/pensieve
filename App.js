@@ -24,7 +24,7 @@ db.once("open", function () {
 });
 
 app.use(express.json());
-// app.use("/api", require("./routes/dummyRoutes"));
+app.use("/users", require("./routes/userRoutes"));
 
 app.listen(5000, () => {
   console.log("Server is running at port 5000");
