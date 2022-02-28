@@ -8,6 +8,7 @@ function AuthContextProvider(props) {
   const [dark, setDark] = useState(true);
   const [currentBatch, setCurrentBatch] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState({ Name:"", Email:"", DocId: ""});
   return (
     <AuthContext.Provider
       value={{
@@ -17,6 +18,8 @@ function AuthContextProvider(props) {
         setCurrentBatch,
         loggedIn,
         setLoggedIn,
+        user,
+        setUser
       }}
     >
       {props.children}

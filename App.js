@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require('cors');
 dotenv.config();
 
 // app.use(
@@ -10,6 +11,15 @@ dotenv.config();
 //     credentials: true,
 //   })
 // );
+
+const corsOpts = {
+  origin: '*',
+  credentials: true,
+  methods: ['GET','POST','HEAD','PUT','PATCH','DELETE'],
+  allowedHeaders: ['Content-Type'],
+  exposedHeaders: ['Content-Type']
+};
+app.use(cors(corsOpts));
 mongoose.connect(process.env.MDB_CONNECT, {
   useNewUrlParser: true,
 

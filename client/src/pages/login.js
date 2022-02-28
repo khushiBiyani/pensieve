@@ -7,8 +7,11 @@ import Google from "../resources/google.png";
 import Github from "../resources/github.png";
 import { Box, Grid, Typography, Button } from "@mui/material";
 
+import axios from 'axios';
+
+
 export default function Login() {
-  const { setLoggedIn } = useContext(AuthContext);
+  const { setLoggedIn, user,setUser } = useContext(AuthContext);
   const onClick = async () => {
     // setLoggedIn(true);
     signInWithPopup(auth, provider)
@@ -16,10 +19,54 @@ export default function Login() {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
+        // The signed-in user.
+        const User = result.user;
         setLoggedIn(true);
-        console.log(user);
+        let ID = "";
+        // GET Document ID
+        fetch('http://localhost:5000/users/email/' + User.email, {method:'GET', mode:'cors'})
+        .then(response => response.json())
+        .then((data) => {
+          ID = data;
+          if(!ID){
+            const requestOptions = {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(
+                {
+                  Name:User.displayName,
+                  Email:User.email,
+                  ID: "",
+                  ProfilePic:"",
+                  Address:"",
+                  Branch: "",
+                  MobileNumber: "",
+                  NickName: "",
+                  PhotoAlbum:[""],
+                  ToRequests:{
+                    Email:"",
+                    IsRecieved:0
+                  },
+                  FromRequests: {
+                    Email: "",
+                    IsSent: 0
+                  }
+                }
+              )
+            };
+            fetch('http://localhost:5000/users/add', requestOptions)
+              .then(response => response.json())
+              .then((data) => {
+                console.log(data._id);
+                ID = data._id;
+                setUser({Name: user.Name, Email: user.Email, DocId: ID});
+              });
+          }
+          setUser({Name: User.displayName, Email: User.email, DocId: ID});
+        })
+        .catch(err => console.log(err))
+        
+        //console.log(user);
         // ...
       })
       .catch((error) => {
@@ -33,6 +80,7 @@ export default function Login() {
         // ...
       });
   };
+
 
   return (
     <Box

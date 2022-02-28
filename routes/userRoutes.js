@@ -10,10 +10,29 @@ router.route('/').get((req,res)=>{
 
 
 // GET user by ID
-router.route('/:id').get((req,res)=>{
+router.route('/id/:id').get((req,res)=>{
     User.findById(req.params.id)
-        .then(user => res.json(user))
-        .catch(err => res.status(400).json("Error: " + err));
+    .then(user => res.json(user))
+    .catch(err => res.status(400).json("Error: " + err))
+    
+})
+
+// GET user ID by EMAIL
+router.route('/email/:email').get((req,res)=>{
+    res.set('Access-Control-Allow-Origin', '*');
+    User.findOne({Email:req.params.email}, (err, doc)=>{
+        if(err){
+            res.status(400).json("Error: " + err)
+        }
+        else{
+            if(doc)
+                res.json(doc._id);
+            else{
+                res.json(null)
+            }
+        }
+    })
+    
 })
 
 
@@ -22,7 +41,7 @@ router.route('/add').post((req,res)=>{
     const user = new User(req.body);
     console.log(user)
     user.save()
-    .then((res.json("New User details added!")))
+    .then((res.json(user)))
     .catch((err)=>{
         res.status(400).json("Error"+ err);
     })
@@ -36,11 +55,13 @@ router.route('/update/:id').put((req,res)=>{
 
     User.findById(req.params.id)
     .then( user =>{
+        console.log(user)
         var update_query = {};
         for (let key in req.body) {
-            if (user[key] && user[key] !== req.body[key]) // if the field we have in req.body exists, we're gonna update it
+            if (user[key]!==undefined  && user[key] !== req.body[key]) // if the field we have in req.body exists, we're gonna update it
             update_query[key] = req.body[key];
         }
+        console.log(update_query);
         // now send it back
         User.updateOne({_id: req.params.id}, update_query)
             .then(res.json("User updated!"))
