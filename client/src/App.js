@@ -39,31 +39,6 @@ function Dashboard() {
               fixed={true}
             />
           </Grid>
-          <Grid item>
-            {/* <div className="App">
-          <Paper style={{ height: "100vh" }}>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={() => {
-                setDark(!dark);
-              }}
-            >
-              Toggle dark mode
-            </Button>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={toggleColorMode}
-            >
-              asdasd
-            </Button>
-            <Link to="/home">Home</Link> | <Link to="/about">About</Link>{" "}
-            | <Link to="/home/1998">1998 home</Link> |{" "}
-            <Link to="/home/2020">2020 home</Link>
-          </Paper>
-        </div> */}
-          </Grid>
         </Grid>
       </Grid>
       <Outlet />

@@ -13,12 +13,10 @@ import Phno from "../components/About/Phno";
 import Profile from "../components/About/Profile";
 import "../components/About/about.css";
 
-
 export default function About() {
-
   // Get name and email from Authcontext
-  const {user, setUser} = useContext(AuthContext);
-  
+  const { user, setUser } = useContext(AuthContext);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [file, setFile] = useState("");
@@ -33,53 +31,57 @@ export default function About() {
   const [nick, setNick] = useState("");
   const [active, setActive] = useState("profile");
 
-  useEffect(()=>{
+  useEffect(() => {
     // emulating the componentDidMount() function
     setName(user.Name);
     setEmail(user.Email);
 
-    if(user.DocId && active==="profile"){
-      fetch('http://localhost:5000/users/id/' + user.DocId, {method:'GET', mode:'cors'})
-        .then(response => response.json())
+    if (user.DocId && active === "profile") {
+      fetch("http://localhost:5000/users/id/" + user.DocId, {
+        method: "GET",
+        mode: "cors",
+      })
+        .then((response) => response.json())
         .then((data) => {
           setImagePreviewUrl(data.ProfilePic);
           setBitsid(data.ID);
           setAddress(data.Address);
-          console.log(data.Branch)
+          // console.log(data.Branch)
           //setdual
           setPhno(data.MobileNumber);
           setNick(data.NickName);
         })
-        .catch(err =>console.log(err))
+        .catch((err) => console.log(err));
     }
-    
-  })
+  });
   const handleSubmit = (e) => {
     // Clicking submit will just toggle between edit and profile mode
-    console.log(user.DocId)
+    // console.log(user.DocId);
     e.preventDefault();
-    if(active === "edit"){
+    if (active === "edit") {
       // Update the database
       const requestOptions = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(
-          {
-            ID: bitsid,
-            ProfilePic:imagePreviewUrl,
-            Address:address,
-            Branch: branch+dual,
-            MobileNumber: phno,
-            NickName: nick
-          }
-        )
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ID: bitsid,
+          ProfilePic: imagePreviewUrl,
+          Address: address,
+          Branch: branch + dual,
+          MobileNumber: phno,
+          NickName: nick,
+        }),
       };
-      fetch('http://localhost:5000/users/update/'+user.DocId, requestOptions)
-        .then(response => response.json())
+      fetch("http://localhost:5000/users/update/" + user.DocId, requestOptions)
+        .then((response) => {
+          // console.log(response);
+          return response.json();
+        })
         .then((data) => {
           console.log(data);
         })
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err));
+      // console.log("aa");
     }
     let activeP = active === "edit" ? "profile" : "edit";
     setActive(activeP);
@@ -92,7 +94,7 @@ export default function About() {
     reader.onloadend = () => {
       setImagePreviewUrl(reader.result); // this is for the actual image
       setFile(e.target.files[0]);
-      console.log(file);
+      // console.log(file);
     };
     reader.readAsDataURL(file);
   };
