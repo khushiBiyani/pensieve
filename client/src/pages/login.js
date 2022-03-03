@@ -19,24 +19,24 @@ export default function Login() {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         // The signed-in user.
-        const User = result.user;
+        const signedInUser = result.user;
         setLoggedIn(true);
         let ID = "";
         // GET Document ID
-        fetch("http://localhost:5000/users/email/" + User.email, {
+        fetch("http://localhost:5000/users/email/" + signedInUser.email, {
           method: "GET",
           mode: "cors",
         })
           .then((response) => response.json())
-          .then((data) => {
-            ID = data;
+          .then((userDetails) => {
+            ID = userDetails._id;
             if (!ID) {
               const requestOptions = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                  Name: User.displayName,
-                  Email: User.email,
+                  Name: signedInUser.displayName,
+                  Email: signedInUser.email,
                   ID: "",
                   ProfilePic: "",
                   Address: "",
@@ -56,13 +56,16 @@ export default function Login() {
               };
               fetch("http://localhost:5000/users/add", requestOptions)
                 .then((response) => response.json())
-                .then((data) => {
-                  console.log(data._id);
-                  ID = data._id;
-                  setUser({ Name: user.Name, Email: user.Email, DocId: ID });
+                .then((newUser) => {
+                  console.log(newUser._id);
+                  ID = newUser._id;
+                  setUser(newUser);
                 });
             }
-            setUser({ Name: User.displayName, Email: User.email, DocId: ID });
+            else{
+              setUser(userDetails);
+            }
+            console.log(user);
           })
           .catch((err) => console.log(err));
 

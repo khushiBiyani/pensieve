@@ -33,30 +33,22 @@ export default function About() {
 
   useEffect(() => {
     // emulating the componentDidMount() function
-    setName(user.Name);
-    setEmail(user.Email);
 
-    if (user.DocId && active === "profile") {
-      fetch("http://localhost:5000/users/id/" + user.DocId, {
-        method: "GET",
-        mode: "cors",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setImagePreviewUrl(data.ProfilePic);
-          setBitsid(data.ID);
-          setAddress(data.Address);
-          // console.log(data.Branch)
-          //setdual
-          setPhno(data.MobileNumber);
-          setNick(data.NickName);
-        })
-        .catch((err) => console.log(err));
+    if(active=='profile'){
+      // Updating the state variables
+      setName(user.Name);
+      setEmail(user.Email);
+      setImagePreviewUrl(user.ProfilePic);
+      setBitsid(user.ID);
+      setAddress(user.Address);
+      setBranch(user.Branch.substring(0,2));
+      setDual(user.Branch.substring(2));
+      setPhno(user.MobileNumber);
+      setNick(user.NickName);
     }
   });
   const handleSubmit = (e) => {
     // Clicking submit will just toggle between edit and profile mode
-    // console.log(user.DocId);
     e.preventDefault();
     if (active === "edit") {
       // Update the database
@@ -72,16 +64,16 @@ export default function About() {
           NickName: nick,
         }),
       };
-      fetch("http://localhost:5000/users/update/" + user.DocId, requestOptions)
+      fetch("http://localhost:5000/users/update/" + user._id, requestOptions)
         .then((response) => {
           // console.log(response);
           return response.json();
         })
-        .then((data) => {
-          console.log(data);
+        .then((updatedUserDetails) => {
+          console.log(updatedUserDetails);
+          setUser(updatedUserDetails);
         })
         .catch((err) => console.log(err));
-      // console.log("aa");
     }
     let activeP = active === "edit" ? "profile" : "edit";
     setActive(activeP);

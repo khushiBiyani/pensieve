@@ -6,7 +6,7 @@ import AuthContext from "../context/AuthContext";
 
 const Logout = () => {
   const navigate = useNavigate();
-  const { setLoggedIn } = useContext(AuthContext);
+  const { setLoggedIn, setUser } = useContext(AuthContext);
   useEffect(() => {
     signOut(auth)
       .then(() => {
@@ -16,6 +16,26 @@ const Logout = () => {
         // An error happened.
       });
     setLoggedIn(false);
+    setUser({  
+      _id:"",
+      Name:"", 
+      Email:"",
+      ID:"",
+      ProfilePic:"",
+      Address:"",
+      Branch:"",
+      MobileNumber:"",
+      NickName:"",
+      PhotoAlbum: [],
+      ToRequests: {
+        Email: "",
+        IsRecieved: 0,
+      },
+      FromRequests: {
+        Email: "",
+        IsSent: 0,
+      },
+      });
     navigate("/");
   }, [navigate]);
 
