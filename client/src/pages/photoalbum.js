@@ -1,45 +1,36 @@
 import { Grid } from "@mui/material";
 import { useState, useContext } from "react";
-import axios from "axios";
 import AuthContext from "../context/AuthContext";
 import { Image } from "cloudinary-react";
 import "../components/Photoalbum/Photoalbum.css";
 import UploadImageController from "../components/Photoalbum/imageUploader";
-
+import UserUpdate from "../controllers/userUpdate";
+import PhotoShowcase from "../components/Photoalbum/PhotoShowcase";
 const PhotoAlbum = (props) => {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const [selectedImages, setSelectedImages] = useState(undefined);
 
-  const [message, setMessage] = useState("");
   const selectImage = (event) => {
     setSelectedImages(event.target.files);
   };
 
+  const update = async () => {
+    const data = await UserUpdate(user._id);
+    await setUser(data);
+  };
+
+  const uploadPhoto = async () => {
+    // for Later Sprints
+
+    // Array.from(selectedImages).map(async (image) => {
+    //   const response = await UploadImageController.upload(image, user._id);
+    // });
+    const response = await UploadImageController(selectedImages[0], user._id);
+  };
+
   const uploadPhotos = async () => {
-    // console.log("started");
-
-    // console.log(selectedImages);
-
-    // Convert FileList into array then for every image, upload it.
-    Array.from(selectedImages).map(async (image) => {
-      const response = await UploadImageController.upload(image)
-        .then(async (response) => {
-          // the uploaded image url is response.data.secure_url
-          const url = response.data.secure_url;
-          // console.log(url);
-          const res = await axios.post(
-            `http://localhost:5000/users/photoUpload/${user.DocId}`,
-            { url }
-          );
-          // console.log(res);
-          // console.log(response);
-          setMessage(response.data.message);
-        })
-        .catch(() => {
-          setMessage("Could not upload the file!");
-        });
-    });
-
+    await uploadPhoto();
+    update();
     setSelectedImages(undefined);
   };
 
@@ -53,7 +44,7 @@ const PhotoAlbum = (props) => {
               <input
                 type="file"
                 placeholder="Choose Image"
-                multiple={true}
+                // multiple={true}
                 onInput={selectImage}
               />
               <span>Add Photo</span>
@@ -65,9 +56,7 @@ const PhotoAlbum = (props) => {
             >
               Upload
             </button>
-            <div style={{ color: "red" }} role="alert">
-              {message}
-            </div>
+            <PhotoShowcase photoLinks={user.PhotoAlbum} />
             {/* <Image
               style={{ width: 200, margin: 50 }}
               cloudName="pensieve"

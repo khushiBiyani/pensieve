@@ -34,14 +34,14 @@ export default function About() {
   useEffect(() => {
     // emulating the componentDidMount() function
 
-    if(active=='profile'){
+    if (active == "profile") {
       // Updating the state variables
       setName(user.Name);
       setEmail(user.Email);
       setImagePreviewUrl(user.ProfilePic);
       setBitsid(user.ID);
       setAddress(user.Address);
-      setBranch(user.Branch.substring(0,2));
+      setBranch(user.Branch.substring(0, 2));
       setDual(user.Branch.substring(2));
       setPhno(user.MobileNumber);
       setNick(user.NickName);
@@ -70,7 +70,7 @@ export default function About() {
           return response.json();
         })
         .then((updatedUserDetails) => {
-          console.log(updatedUserDetails);
+          // console.log(updatedUserDetails);
           setUser(updatedUserDetails);
         })
         .catch((err) => console.log(err));
