@@ -22,7 +22,7 @@ router.route("/email/:email").get((req, res) => {
     if (err) {
       res.status(400).json("Error: " + err);
     } else {
-      if (doc) res.json(doc._id);
+      if (doc) res.json(doc);
       else {
         res.json(null);
       }
@@ -57,11 +57,15 @@ router.route("/update/:id").put((req, res) => {
       }
       //   console.log(update_query);
       // now send it back
-      User.updateOne({ _id: req.params.id }, update_query)
-        .then(res.json("User updated!"))
-        .catch((err) => res.status(400).json("Error: " + err));
+      User.updateOne({ _id: req.params.id }, update_query, {new:true})
+        .then((doc) =>{
+          console.log(doc);
+          User.findById(req.params.id)
+              .then((user) => res.json(user))})
+        .catch((err) => res.status(400).json("Error: " + err))
     })
     .catch((err) => res.status(400).json("Error: " + err));
+
 });
 
 // DELETE user by ID
