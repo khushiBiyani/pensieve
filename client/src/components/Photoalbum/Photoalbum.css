@@ -1,23 +1,23 @@
-.photoAlbumLabel input{
-    height: 0;
-    width: 0;
-    opacity: 0;
-  }
-  .photoAlbumLabel{
-    display: block;
-    width: 85px;
-    height: 35px;
-    border: 1px solid var(--primary);
-    border-radius: 8%;
-    margin: 10px auto;
-    line-height: 30px;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    align-content: center;
-    text-align: center;
-    background-color: rgb(76, 221, 221);
-  }
-  .photoAlbumLabel:hover{
-    cursor: pointer;
-  }
+.photoAlbumLabel input {
+  height: 0;
+  width: 0;
+  opacity: 0;
+}
+.photoAlbumLabel {
+  display: block;
+  width: 85px;
+  height: 35px;
+  border: 1px solid var(--primary);
+  border-radius: 8%;
+  margin: 10px auto;
+  line-height: 30px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  align-content: center;
+  text-align: center;
+  background-color: rgb(76, 221, 221);
+}
+.photoAlbumLabel:hover {
+  cursor: pointer;
+}

@@ -42,6 +42,7 @@ input[type="file"].about-file-input {
   height: 200px;
   overflow: hidden;
   border-radius: 50%;
+  object-fit: scale-down;
 }
 .img-upload:before {
   content: "\f093";

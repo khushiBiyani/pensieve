@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import { useState, useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { Image } from "cloudinary-react";
@@ -27,7 +27,7 @@ const PhotoAlbum = (props) => {
     // });
     const response = await UploadImageController(selectedImages[0], user._id);
   };
-
+  console.log(user);
   const uploadPhotos = async () => {
     await uploadPhoto();
     update();
@@ -40,23 +40,32 @@ const PhotoAlbum = (props) => {
       <Grid item xs={12} md={9}>
         <div className="userDetails" style={{ margin: "4vh 4vh" }}>
           <div>
-            <label className="photoAlbumLabel">
+            <Button
+              sx={{ backgroundColor: "rgb(76, 221, 221)", margin: "20px 20px" }}
+            >
               <input
+                style={{ height: 0, width: 0 }}
                 type="file"
                 placeholder="Choose Image"
                 // multiple={true}
                 onInput={selectImage}
               />
               <span>Add Photo</span>
-            </label>
-            <button
-              className="photoAlbumLabel"
-              disabled={!selectedImages}
+            </Button>
+            <Button
+              // className="photoAlbumLabel"
+              sx={{ backgroundColor: "rgb(76, 221, 221)" }}
+              variant="contained"
+              // disabled={!selectedImages}
               onClick={uploadPhotos}
             >
               Upload
-            </button>
-            <PhotoShowcase photoLinks={user.PhotoAlbum} />
+            </Button>
+            <PhotoShowcase
+              photoLinks={user.PhotoAlbum}
+              id={user._id}
+              setUser={setUser}
+            />
             {/* <Image
               style={{ width: 200, margin: 50 }}
               cloudName="pensieve"

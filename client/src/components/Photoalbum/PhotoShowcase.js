@@ -1,4 +1,6 @@
 import * as React from "react";
+import axios from "axios";
+import update from "../../controllers/userUpdate";
 import {
   ImageList,
   ImageListItem,
@@ -16,6 +18,16 @@ function srcset(image, width, height, rows = 1, cols = 1) {
 }
 
 export default function CustomImageList(props) {
+  const removePhoto = async (link) => {
+    console.log("started");
+    const res = await axios.put("http://localhost:5000/users/delete/photo", {
+      link: link,
+      id: props.id,
+    });
+    const data = await update(props.id);
+    props.setUser(data);
+  };
+
   return (
     <ImageList
       sx={{
@@ -49,7 +61,12 @@ export default function CustomImageList(props) {
               }}
               position="top"
               actionIcon={
-                <IconButton sx={{ color: "white" }}>
+                <IconButton
+                  onClick={() => {
+                    removePhoto(url);
+                  }}
+                  sx={{ color: "white" }}
+                >
                   <DeleteIcon />
                 </IconButton>
               }

@@ -48,24 +48,22 @@ router.route("/update/:id").put((req, res) => {
 
   User.findById(req.params.id)
     .then((user) => {
-      //   console.log(user);
       var update_query = {};
       for (let key in req.body) {
         if (user[key] !== undefined && user[key] !== req.body[key])
           // if the field we have in req.body exists, we're gonna update it
           update_query[key] = req.body[key];
       }
-      //   console.log(update_query);
+
       // now send it back
-      User.updateOne({ _id: req.params.id }, update_query, {new:true})
-        .then((doc) =>{
+      User.updateOne({ _id: req.params.id }, update_query, { new: true })
+        .then((doc) => {
           console.log(doc);
-          User.findById(req.params.id)
-              .then((user) => res.json(user))})
-        .catch((err) => res.status(400).json("Error: " + err))
+          User.findById(req.params.id).then((user) => res.json(user));
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
     })
     .catch((err) => res.status(400).json("Error: " + err));
-
 });
 
 // DELETE user by ID
@@ -83,14 +81,30 @@ router.route("/delete/:id").delete((req, res) => {
 
 router.route("/photoUpload/:id").post(async (req, res) => {
   try {
-    // console.log("aaa");
-    // console.log(req.body);
     const currentUser = await User.findById(req.params.id);
     const oldAlbum = currentUser.PhotoAlbum;
     const response = await User.findByIdAndUpdate(req.params.id, {
       PhotoAlbum: [req.body.url, ...oldAlbum],
     });
     if (response) res.send(true);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(false);
+  }
+});
+
+router.route("/delete/photo").put(async (req, res) => {
+  try {
+    const id = req.body.id;
+    const linkToDelete = req.body.link;
+    const response = await User.findById(id);
+    console.log(linkToDelete);
+    const newAlbum = response.PhotoAlbum.filter((link) => {
+      if (link != linkToDelete) return true;
+      else return false;
+    });
+    const result = await User.findByIdAndUpdate(id, { PhotoAlbum: newAlbum });
+    res.send(true);
   } catch (err) {
     console.error(err);
     res.status(500).send(false);
