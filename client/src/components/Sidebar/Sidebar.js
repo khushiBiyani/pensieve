@@ -261,6 +261,7 @@ function Sidebar(props) {
 export function SidebarResponsive(props) {
   // to check for active links and opened collapses
   let location = useLocation();
+  // console.log(props.icon);
   // this is for the rest of the collapses
   const [state, setState] = React.useState({});
   const mainPanel = React.useRef();
@@ -271,6 +272,7 @@ export function SidebarResponsive(props) {
   // this function creates the links and collapses that appear in the sidebar (left menu)
   const CreateLinks = (routes) => {
     // Chakra Color Mode
+
     const activeBg = useColorModeValue("gray.700", "white");
     const inactiveBg = useColorModeValue("gray.700", "white");
     const activeColor = useColorModeValue("white", "gray.700");
@@ -338,9 +340,6 @@ export function SidebarResponsive(props) {
               }}
             >
               <Flex>
-                {/* {typeof prop.icon === "string" ? (
-                  <Icon>{prop.icon}</Icon>
-                ) : ( */}
                 <IconBox
                   bg="teal.300"
                   color="white"
@@ -352,9 +351,7 @@ export function SidebarResponsive(props) {
                 </IconBox>
                 {/* )} */}
                 <Text color={activeColor} my="auto" fontSize="sm">
-                  {document.documentElement.dir === "rtl"
-                    ? prop.rtlName
-                    : prop.name}
+                  {prop.name}
                 </Text>
               </Flex>
             </Button>
@@ -396,9 +393,7 @@ export function SidebarResponsive(props) {
                 </IconBox>
                 {/* )} */}
                 <Text color="white" my="auto" fontSize="sm">
-                  {document.documentElement.dir === "rtl"
-                    ? prop.rtlName
-                    : prop.name}
+                  {prop.name}
                 </Text>
               </Flex>
             </Button>
@@ -457,8 +452,17 @@ export function SidebarResponsive(props) {
     >
       <HamburgerIcon
         color={hamburgerColor}
-        w="18px"
-        h="18px"
+        sx={{
+          // eslint-disable-next-line no-useless-computed-key
+          ["@media (max-width:960px) and (min-width: 900px)"]: {
+            // display: "none",
+            width: "100px",
+            marginLeft: "-225px",
+            marginTop: "8px",
+          },
+        }}
+        width="100px"
+        h="30px"
         ref={btnRef}
         colorScheme="teal"
         onClick={onOpen}
@@ -466,7 +470,7 @@ export function SidebarResponsive(props) {
       <Drawer
         isOpen={isOpen}
         onClose={onClose}
-        placement={document.documentElement.dir === "rtl" ? "right" : "left"}
+        placement={"left"}
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />
@@ -482,17 +486,12 @@ export function SidebarResponsive(props) {
           borderRadius="16px"
           backgroundColor="black"
         >
-          <DrawerCloseButton
-            _focus={{ boxShadow: "none" }}
-            _hover={{ boxShadow: "none" }}
-          />
           <DrawerBody maxW="250px" px="1rem">
             <Box maxW="100%" h="100vh">
               <Box>{brand}</Box>
               <Stack direction="column" mb="40px">
                 <Box>{links}</Box>
               </Stack>
-              {/* <SidebarHelp></SidebarHelp> */}
             </Box>
           </DrawerBody>
         </DrawerContent>

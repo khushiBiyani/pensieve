@@ -34,7 +34,7 @@ export default function About() {
   useEffect(() => {
     // emulating the componentDidMount() function
 
-    if (active == "profile") {
+    if (active === "profile") {
       // Updating the state variables
       setName(user.Name);
       setEmail(user.Email);

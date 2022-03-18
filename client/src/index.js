@@ -8,7 +8,7 @@ import Preview from "./pages/bookPreview";
 import PhotoAlbum from "./pages/photoalbum";
 import ShareLink from "./pages/shareLink";
 import TestForYou from "./pages/testForYou";
-import TestByYou from "./pages/testByYou";
+import TestByYou from "./pages/TestsByYou/testByYou";
 import About from "./pages/About";
 import RequestTest from "./pages/request";
 import Logout from "./pages/Logout";

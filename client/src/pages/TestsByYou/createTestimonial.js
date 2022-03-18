@@ -1,0 +1,79 @@
+import { Select, Container, Textarea, Button } from "@mantine/core";
+import { useState } from "react";
+const data = [
+  "f20201089@hyderabad.bits-pilani.ac.in",
+  "f20200194@hyderabad.bits-pilani.ac.in",
+  "f20200080@hyderabad.bits-pilani.ac.in",
+];
+export default function CreateTest() {
+  const [targetEmail, setTargetEmail] = useState("");
+  const [targetContent, setTargetContent] = useState("");
+  const handleChange = (e) => {
+    setTargetEmail(e);
+  };
+  const handleContentChange = (e) => {
+    setTargetContent(e.target.value);
+  };
+  return (
+    <>
+      <Container sx={{ margin: "auto" }}>
+        <Select
+          placeholder="BITSmail"
+          label="Email"
+          required
+          size="lg"
+          searchable
+          nothingFound="No options"
+          maxDropdownHeight={280}
+          data={data}
+          onChange={handleChange}
+          value={targetEmail}
+          sx={{
+            width: "40vw",
+            label: { color: "white" },
+            input: { textAlign: "center" },
+            margin: "auto",
+            marginTop: "20px",
+            // eslint-disable-next-line no-useless-computed-key
+            ["@media (max-width:960px)"]: {
+              width: "80%",
+              margin: "20px 0",
+            },
+          }}
+        />
+        <Textarea
+          placeholder="Pour your Heart out :)"
+          label="Content"
+          autosize
+          required
+          size="lg"
+          minRows={3}
+          value={targetContent}
+          onChange={handleContentChange}
+          sx={{
+            width: "40vw",
+            margin: "auto",
+            marginTop: "20px",
+            label: { color: "white" },
+            // eslint-disable-next-line no-useless-computed-key
+            ["@media (max-width:960px)"]: {
+              width: "80%",
+              margin: "20px 0",
+            },
+          }}
+        />
+        <Button
+          variant="gradient"
+          gradient={{ from: "indigo", to: "cyan" }}
+          sx={{
+            display: "block",
+            margin: "auto",
+            marginTop: "30px",
+          }}
+        >
+          Submit Testimonial
+        </Button>
+      </Container>
+    </>
+  );
+}

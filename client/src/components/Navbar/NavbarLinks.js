@@ -129,6 +129,7 @@ export default function HeaderLinks(props) {
           secondary={props.secondary}
           routes={routes}
           // logo={logo}
+          icon={<i class="fas fa-sticky-note"></i>}
           {...rest}
         />
       </Box>
