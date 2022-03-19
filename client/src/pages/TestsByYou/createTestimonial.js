@@ -1,19 +1,40 @@
 import { Select, Container, Textarea, Button } from "@mantine/core";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import axios from "axios";
+import AuthContext from "../../context/AuthContext";
+
 const data = [
   "f20201089@hyderabad.bits-pilani.ac.in",
   "f20200194@hyderabad.bits-pilani.ac.in",
-  "f20200080@hyderabad.bits-pilani.ac.in",
+  "f20201883@hyderabad.bits-pilani.ac.in",
 ];
+
 export default function CreateTest() {
   const [targetEmail, setTargetEmail] = useState("");
   const [targetContent, setTargetContent] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState("");
+  const { user } = useContext(AuthContext);
+  const handleSubmit = async () => {
+    const response = await axios.post(
+      "http://localhost:5000/users/createTest",
+      {
+        id: user._id,
+        from: user.Email,
+        to: targetEmail,
+        content: targetContent,
+      }
+    );
+    console.log(response);
+    // setIsSubmitted(response.)
+  };
+
   const handleChange = (e) => {
     setTargetEmail(e);
   };
   const handleContentChange = (e) => {
     setTargetContent(e.target.value);
   };
+
   return (
     <>
       <Container sx={{ margin: "auto" }}>
@@ -70,6 +91,7 @@ export default function CreateTest() {
             margin: "auto",
             marginTop: "30px",
           }}
+          onClick={handleSubmit}
         >
           Submit Testimonial
         </Button>

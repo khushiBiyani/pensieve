@@ -44,28 +44,23 @@ export default function Login() {
                   MobileNumber: "",
                   NickName: "",
                   PhotoAlbum: [""],
-                  ToRequests: {
-                    Email: "",
-                    IsRecieved: 0,
-                  },
-                  FromRequests: {
-                    Email: "",
-                    IsSent: 0,
-                  },
+                  ToRequests: [],
+                  FromRequests: [],
+                  TestimonialsSent: [],
+                  TestimonialsReceived: [],
                 }),
               };
               fetch("http://localhost:5000/users/add", requestOptions)
                 .then((response) => response.json())
                 .then((newUser) => {
-                  console.log(newUser._id);
+                  // console.log(newUser._id);
                   ID = newUser._id;
                   setUser(newUser);
                 });
-            }
-            else{
+            } else {
               setUser(userDetails);
             }
-            console.log(user);
+            // console.log(user);
           })
           .catch((err) => console.log(err));
 

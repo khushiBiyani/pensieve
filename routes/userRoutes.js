@@ -24,7 +24,7 @@ router.route("/email/:email").get((req, res) => {
     } else {
       if (doc) res.json(doc);
       else {
-        res.json(null);
+        res.json({ _id: null });
       }
     }
   });
@@ -98,7 +98,7 @@ router.route("/delete/photo").put(async (req, res) => {
     const id = req.body.id;
     const linkToDelete = req.body.link;
     const response = await User.findById(id);
-    console.log(linkToDelete);
+    // console.log(linkToDelete);
     const newAlbum = response.PhotoAlbum.filter((link) => {
       if (link != linkToDelete) return true;
       else return false;
@@ -112,3 +112,37 @@ router.route("/delete/photo").put(async (req, res) => {
 });
 
 module.exports = router;
+
+router.route("/createTest").post(async (req, res) => {
+  try {
+    const { id, to, from, content } = req.body;
+    const user = await User.findById(id);
+    const currTest = user.TestimonialsSent;
+    if (
+      (await currTest.filter((post) => {
+        if (post.To === to) {
+          return true;
+        }
+      }).length) > 0
+    )
+      res.send({ result: "Repeated" });
+    const response = await User.findByIdAndUpdate(id, {
+      TestimonialsSent: [...currTest, { To: to, Content: content }],
+    });
+    const receiver = await User.findOne({ Email: to });
+    const existingTest = receiver.TestimonialsReceived;
+    const response2 = await User.findOneAndUpdate(
+      { Email: to },
+      {
+        TestimonialsReceived: [
+          ...existingTest,
+          { From: from, Content: content },
+        ],
+      }
+    );
+    res.status(200).send({ result: "Sent" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(false);
+  }
+});

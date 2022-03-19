@@ -12,14 +12,30 @@ var User = new Schema({
   MobileNumber: String,
   NickName: String,
   PhotoAlbum: [String],
-  ToRequests: {
-    Email: String,
-    IsRecieved: Boolean,
-  },
-  FromRequests: {
-    Email: String,
-    IsSent: Boolean,
-  },
+  ToRequests: [
+    {
+      Email: String,
+      IsRecieved: Boolean,
+    },
+  ],
+  FromRequests: [
+    {
+      Email: String,
+      IsSent: Boolean,
+    },
+  ],
+  TestimonialsSent: [
+    {
+      To: String,
+      Content: String,
+    },
+  ],
+  TestimonialsReceived: [
+    {
+      From: String,
+      Content: String,
+    },
+  ],
 });
 
 module.exports = User = mongoose.model("users", User);
