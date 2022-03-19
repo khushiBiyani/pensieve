@@ -43,7 +43,7 @@ export default function Login() {
                   Branch: "",
                   MobileNumber: "",
                   NickName: "",
-                  PhotoAlbum: [""],
+                  PhotoAlbum: [],
                   ToRequests: [],
                   FromRequests: [],
                   TestimonialsSent: [],

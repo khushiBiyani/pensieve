@@ -1,4 +1,5 @@
-import { Grid, Button } from "@mui/material";
+import { Grid } from "@mui/material";
+import { Button } from "@mantine/core";
 import { useState, useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { Image } from "cloudinary-react";
@@ -8,8 +9,8 @@ import UserUpdate from "../controllers/userUpdate";
 import PhotoShowcase from "../components/Photoalbum/PhotoShowcase";
 const PhotoAlbum = (props) => {
   const { user, setUser } = useContext(AuthContext);
-  const [selectedImages, setSelectedImages] = useState(undefined);
-
+  const [selectedImages, setSelectedImages] = useState(null);
+  const [isUploaded, setIsUploaded] = useState(true);
   const selectImage = (event) => {
     setSelectedImages(event.target.files);
   };
@@ -27,11 +28,13 @@ const PhotoAlbum = (props) => {
     // });
     const response = await UploadImageController(selectedImages[0], user._id);
   };
-  console.log(user);
+  // console.log(user);
   const uploadPhotos = async () => {
+    setIsUploaded(false);
     await uploadPhoto();
     update();
-    setSelectedImages(undefined);
+    setSelectedImages(null);
+    setIsUploaded(true);
   };
 
   return (
@@ -41,11 +44,16 @@ const PhotoAlbum = (props) => {
         <div className="userDetails" style={{ margin: "4vh 4vh" }}>
           <div>
             <Button
-              sx={{ backgroundColor: "rgb(76, 221, 221)", margin: "20px 20px" }}
+              variant="white"
+              color="dark"
+              // component="label"
+              sx={{ margin: "20px 20px" }}
             >
               <input
-                style={{ height: 0, width: 0 }}
+                // style={{ display: "none" }}
                 type="file"
+                // value={selectedImages}
+                value={isUploaded ? null : ""}
                 placeholder="Choose Image"
                 // multiple={true}
                 onInput={selectImage}
@@ -54,9 +62,11 @@ const PhotoAlbum = (props) => {
             </Button>
             <Button
               // className="photoAlbumLabel"
-              sx={{ backgroundColor: "rgb(76, 221, 221)" }}
-              variant="contained"
-              // disabled={!selectedImages}
+              // sx={{ backgroundColor: "rgb(76, 221, 221)" }}
+              variant="white"
+              color="dark"
+              loading={!isUploaded}
+              disabled={!selectedImages}
               onClick={uploadPhotos}
             >
               Upload
