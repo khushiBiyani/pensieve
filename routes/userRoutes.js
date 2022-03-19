@@ -126,21 +126,23 @@ router.route("/createTest").post(async (req, res) => {
       }).length) > 0
     )
       res.send({ result: "Repeated" });
-    const response = await User.findByIdAndUpdate(id, {
-      TestimonialsSent: [...currTest, { To: to, Content: content }],
-    });
-    const receiver = await User.findOne({ Email: to });
-    const existingTest = receiver.TestimonialsReceived;
-    const response2 = await User.findOneAndUpdate(
-      { Email: to },
-      {
-        TestimonialsReceived: [
-          ...existingTest,
-          { From: from, Content: content },
-        ],
-      }
-    );
-    res.status(200).send({ result: "Sent" });
+    else {
+      const response = await User.findByIdAndUpdate(id, {
+        TestimonialsSent: [...currTest, { To: to, Content: content }],
+      });
+      const receiver = await User.findOne({ Email: to });
+      const existingTest = receiver.TestimonialsReceived;
+      const response2 = await User.findOneAndUpdate(
+        { Email: to },
+        {
+          TestimonialsReceived: [
+            ...existingTest,
+            { From: from, Content: content },
+          ],
+        }
+      );
+      res.status(200).send({ result: "Sent" });
+    }
   } catch (err) {
     console.log(err);
     res.status(500).send(false);
