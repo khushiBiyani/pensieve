@@ -2,12 +2,8 @@ import { Select, Container, Textarea, Button, Text } from "@mantine/core";
 import { useState, useContext } from "react";
 import axios from "axios";
 import AuthContext from "../../context/AuthContext";
-
-const data = [
-  "f20201089@hyderabad.bits-pilani.ac.in",
-  "f20200194@hyderabad.bits-pilani.ac.in",
-  "f20201883@hyderabad.bits-pilani.ac.in",
-];
+import contacts from "../../contacts";
+const emails = contacts.map((contact) => contact.Email);
 
 export default function CreateTest() {
   const [targetEmail, setTargetEmail] = useState("");
@@ -47,7 +43,7 @@ export default function CreateTest() {
           searchable
           nothingFound="No options"
           maxDropdownHeight={280}
-          data={data}
+          data={emails}
           onChange={handleChange}
           value={targetEmail}
           sx={{

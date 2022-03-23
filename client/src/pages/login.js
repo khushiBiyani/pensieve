@@ -1,16 +1,19 @@
 import AuthContext from "../context/AuthContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth, provider } from "../services/firebase";
 import backgroundImage from "../resources/background.jpg";
 import Google from "../resources/google.png";
 import Github from "../resources/github.png";
 import { Box, Grid, Typography, Button } from "@mui/material";
+import { LoadingOverlay } from "@mantine/core";
 
 import axios from "axios";
 
 export default function Login() {
   const { setLoggedIn, user, setUser } = useContext(AuthContext);
+  const [overlayVisible, setOverlayVisible] = useState(null);
+
   const onClick = async () => {
     // setLoggedIn(true);
     signInWithPopup(auth, provider)
@@ -20,7 +23,9 @@ export default function Login() {
         const token = credential.accessToken;
         // The signed-in user.
         const signedInUser = result.user;
-        setLoggedIn(true);
+        setOverlayVisible(true);
+        //setLoggedIn(true);
+
         let ID = "";
         // GET Document ID
         fetch("http://localhost:5000/users/email/" + signedInUser.email, {
@@ -61,6 +66,8 @@ export default function Login() {
               setUser(userDetails);
             }
             // console.log(user);
+            setOverlayVisible(false);
+            setLoggedIn(true);
           })
           .catch((err) => console.log(err));
 
@@ -89,6 +96,12 @@ export default function Login() {
         color: "white",
       }}
     >
+      <LoadingOverlay
+        visible={overlayVisible}
+        overlayColor="#202024"
+        loaderProps={{ size: "lg" }}
+      />
+
       <Grid container sx={{ margin: "0px" }}>
         <Grid
           item

@@ -8,27 +8,22 @@ function AuthContextProvider(props) {
   const [dark, setDark] = useState(true);
   const [currentBatch, setCurrentBatch] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [user, setUser] = useState(
-    {  
-      _id:"",
-      Name:"", 
-      Email:"",
-      ID:"",
-      ProfilePic:"",
-      Address:"",
-      Branch:"",
-      MobileNumber:"",
-      NickName:"",
-      PhotoAlbum: [],
-      ToRequests: {
-        Email: "",
-        IsRecieved: 0,
-      },
-      FromRequests: {
-        Email: "",
-        IsSent: 0,
-      },
-      });
+  const [user, setUser] = useState({
+    _id: "",
+    Name: "",
+    Email: "",
+    ID: "",
+    ProfilePic: "",
+    Address: "",
+    Branch: "",
+    MobileNumber: "",
+    NickName: "",
+    PhotoAlbum: [],
+    ToRequests: [],
+    FromRequests: [],
+    TestimonialsSent: [],
+    TestimonialsReceived: [],
+  });
   return (
     <AuthContext.Provider
       value={{
@@ -39,7 +34,7 @@ function AuthContextProvider(props) {
         loggedIn,
         setLoggedIn,
         user,
-        setUser
+        setUser,
       }}
     >
       {props.children}
