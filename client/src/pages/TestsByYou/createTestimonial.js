@@ -1,13 +1,9 @@
-import { Select, Container, Textarea, Button } from "@mantine/core";
+import { Select, Container, Textarea, Button, Text } from "@mantine/core";
 import { useState, useContext } from "react";
 import axios from "axios";
 import AuthContext from "../../context/AuthContext";
-
-const data = [
-  "f20201089@hyderabad.bits-pilani.ac.in",
-  "f20200194@hyderabad.bits-pilani.ac.in",
-  "f20201883@hyderabad.bits-pilani.ac.in",
-];
+import contacts from "../../contacts";
+const emails = contacts.map((contact) => contact.Email);
 
 export default function CreateTest() {
   const [targetEmail, setTargetEmail] = useState("");
@@ -24,7 +20,8 @@ export default function CreateTest() {
         content: targetContent,
       }
     );
-    console.log(response);
+    setIsSubmitted(response.data.result);
+    setTargetContent("");
     // setIsSubmitted(response.)
   };
 
@@ -46,7 +43,7 @@ export default function CreateTest() {
           searchable
           nothingFound="No options"
           maxDropdownHeight={280}
-          data={data}
+          data={emails}
           onChange={handleChange}
           value={targetEmail}
           sx={{
@@ -95,6 +92,17 @@ export default function CreateTest() {
         >
           Submit Testimonial
         </Button>
+        {isSubmitted === "Sent" && (
+          <Text color="green" weight={700} sx={{ marginTop: "20px" }}>
+            Testimonial Successfully Submitted.
+          </Text>
+        )}
+        {isSubmitted === "Repeated" && (
+          <Text color="red" weight={700} sx={{ marginTop: "20px" }}>
+            You have already submitted a Testimonial for this email, Please go
+            to View All section to Edit pre-existing testimonial.
+          </Text>
+        )}
       </Container>
     </>
   );
