@@ -1,24 +1,35 @@
-import { TextField } from '@mui/material'
+import {Textarea } from "@mantine/core";
+
 import React from 'react'
 
 export default function Phno({
     onChange,
-    value
+    value,
+    active
   }) {
   return (
-    <div className="field">
-      {/* <label htmlFor="mobno">
-        Phone number:
-      </label> */}
-      <TextField 
+    <div>
+      <Textarea
         id="phno"  
         label="Phone number"
-        onChange={onChange} 
-        maxlength="10" 
-        value={value} 
         placeholder="10 digit no." 
-        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-        required/>
+        maxlength="10"
+        autosize
+        required
+        value={value} 
+        onChange={onChange} 
+        inputProps={{
+          readOnly: (active==="profile")?true:false,
+          inputMode: 'numeric', pattern: '[0-9]*' 
+        }}
+        sx={{
+          width: "20vw",
+          margin: "auto",
+          marginTop: "20px",
+          marginRight:"20px",
+          label: { color: "white" },
+        }}
+      />
     </div>
   )
 }
