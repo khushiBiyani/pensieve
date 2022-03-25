@@ -1,25 +1,33 @@
-import { TextField } from '@mui/material'
+import {Textarea } from "@mantine/core";
 import React from 'react'
 
 export default function Address({
     onChange,
-    value
+    value,
+    active
   }) {
   return (
-    <div className="field">
-    {/* <label htmlFor="address">
-      Address:
-    </label> */}
-    <TextField 
-      id="address" 
-      label="Address"
-      onChange={onChange} 
-      maxLength="255" 
-      value={value}
-      placeholder="Home address" 
-      multiline
-      maxRows={4}
-      required/>
+    <div>
+      <Textarea
+        id="address" 
+        label="Address"
+        onChange={onChange} 
+        maxLength="500" 
+        value={value}
+        minRows={3}
+        placeholder="Home address"
+        autosize
+        required
+        inputProps={{
+          readOnly: (active==="profile")?true:false,
+        }}
+        sx={{
+          width: "30vw",
+          marginTop: "20px",
+          marginRight:"20px",
+          label: { color: "white" },
+        }}
+      />
   </div>
   )
 }

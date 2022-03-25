@@ -1,23 +1,33 @@
-import { TextField } from '@mui/material'
+import {Textarea } from "@mantine/core";
+
 import React from 'react'
 
 export default function Bitsid({
     onChange,
-    value
+    value,
+    active
   }) {
   return (
-    <div className="field">
-      {/* <label htmlFor="bitsid">
-        Bits ID:
-      </label> */}
-      <TextField 
+    <div>
+      <Textarea
         id="bitsid"
-        label="Bits ID"  
-        onChange={onChange} 
-        maxlength="13" 
-        value={value} 
         placeholder="20XXAXPSXXXXH" 
-        required/>
+        label="Bits ID"
+        autosize
+        required
+        value={value} 
+        onChange={onChange} 
+        inputProps={{
+          readOnly: (active==="profile")?true:false
+        }}
+        sx={{
+          width: "20vw",
+          margin: "auto",
+          marginTop: "20px",
+          marginRight:"20px",
+          label: { color: "white" },
+        }}
+      />
     </div>
   )
 }
