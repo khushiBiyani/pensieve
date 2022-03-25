@@ -9,12 +9,15 @@ export default function CreateTest({ requestEmail, clearRequestEmail }) {
   const [targetEmail, setTargetEmail] = useState("");
   const [targetContent, setTargetContent] = useState("");
   const [isSubmitted, setIsSubmitted] = useState("");
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
-  if (targetEmail === "" && requestEmail !== "") {
-    setTargetEmail(requestEmail);
-    clearRequestEmail();
-  }
+  useEffect(() => {
+    if (targetEmail === "" && requestEmail !== "") {
+      setTargetEmail(requestEmail);
+      clearRequestEmail();
+    }
+  });
+
   const handleSubmit = async () => {
     const response = await axios.post(
       "http://localhost:5000/users/createTest",
@@ -27,6 +30,25 @@ export default function CreateTest({ requestEmail, clearRequestEmail }) {
     );
     setIsSubmitted(response.data.result);
     setTargetContent("");
+
+    // Update ToRequests array
+    let requestObj = user.ToRequests.find((req) => req.Email === targetEmail);
+    if (requestObj) {
+      // need to update the context variable
+      var updatedUser = user;
+      var index = updatedUser.ToRequests.indexOf(requestObj);
+      updatedUser.ToRequests.splice(index, 1);
+
+      // update in database
+      const putResponse = await axios.put(
+        "http://localhost:5000/users/update/" + user._id,
+        {
+          ToRequests: updatedUser.ToRequests,
+        }
+      );
+      setUser(updatedUser);
+    }
+
     // setIsSubmitted(response.)
   };
 
