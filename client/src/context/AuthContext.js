@@ -19,7 +19,10 @@ function AuthContextProvider(props) {
     MobileNumber: "",
     NickName: "",
     PhotoAlbum: [],
+    // Requests sent TO someone
     ToRequests: [],
+
+    // Requests received FROM someone
     FromRequests: [],
     TestimonialsSent: [],
     TestimonialsReceived: [],
