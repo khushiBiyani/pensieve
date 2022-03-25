@@ -1,22 +1,31 @@
-import { TextField } from '@mui/material'
+import {Textarea } from "@mantine/core";
 import React from 'react'
 
 export default function Nick({
     onChange,
-    value
+    value,
+    active
   }) {
   return (
-    <div className="field">
-      {/* <label htmlFor="nick">
-        Nick name:
-      </label> */}
-      <TextField 
+    <div>
+      <Textarea
         id="nick" 
         label="Nick name"
         onChange={onChange} 
         maxlength="25" 
         value={value} 
-        placeholder="(Optional)"/>
+        placeholder="(Optional)"
+        autosize
+        inputProps={{
+          readOnly: (active==="profile")?true:false,
+        }}
+        sx={{
+          width: "20vw",
+          marginTop: "20px",
+          marginRight:"20px",
+          label: { color: "white" },
+        }}
+      />
     </div>
   )
 }

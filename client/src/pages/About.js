@@ -1,17 +1,15 @@
 import AuthContext from "../context/AuthContext";
 
-import { Grid, Typography } from "@mui/material";
+import {Button, Text } from "@mantine/core";import React from 'react'
+import { Grid } from "@mui/material";
 import { useContext, useState, useEffect } from "react";
 import Address from "../components/About/Address";
 import Bitsid from "../components/About/Bitsid";
 import Branch from "../components/About/Branch";
 import Dual from "../components/About/Dual";
-import Edit from "../components/About/Edit";
 import ImgUpload from "../components/About/ImgUpload";
 import Nick from "../components/About/Nick";
 import Phno from "../components/About/Phno";
-import Profile from "../components/About/Profile";
-import "../components/About/about.css";
 
 export default function About() {
   // Get name and email from Authcontext
@@ -95,42 +93,44 @@ export default function About() {
     <Grid container spacing={1}>
       <Grid item xs={0} sm={3} />
       <Grid item xs={12} md={9}>
-        <div className="userDetails" style={{ margin: "4vh 4vh" }}>
-          {active === "edit" ? (
-            <Edit onSubmit={handleSubmit}>
+        <div className="userDetails" style={{ margin: "4vh 4vh", display:"flex", flexDirection: "column", alignItems:"center" }}>
               <ImgUpload onChange={photoUpload} src={imagePreviewUrl} />
-              <Typography className="name">Name: {name}</Typography>
-              <Typography className="email">Email: {email}</Typography>
-              <div className="first-segment">
+              <Text size="lg" weight={500} color="white" > Name: {name}</Text>
+              <Text size="lg" weight={500} color="white">Email: {email}</Text>
+              <div style={{display: "flex", flexDirection: "row"}}>
                 <Bitsid
                   onChange={(e) => {
                     setBitsid(e.target.value);
                   }}
                   value={bitsid}
+                  active={active}
                 />
                 <Phno
                   onChange={(e) => {
                     setPhno(e.target.value);
                   }}
                   value={phno}
+                  active={active}
                 />
               </div>
-              <div className="second-segment">
+              <div style={{display: "flex", flexDirection: "row"}}>
                 <Branch
                   onChange={(e) => {
-                    setBranch(e.target.value);
+                    setBranch(e);
                   }}
                   value={branch}
+                  active={active}
                 />
                 {branch.includes("B") ? (
                   <Dual
                     onChange={(e) => {
-                      setDual(e.target.value);
+                      setDual(e);
                     }}
                     value={dual}
+                    active={active}
                   />
                 ) : (
-                  <div></div>
+                  <></>
                 )}
               </div>
               <Address
@@ -138,28 +138,28 @@ export default function About() {
                   setAddress(e.target.value);
                 }}
                 value={address}
+                active={active}
               />
               <Nick
                 onChange={(e) => {
                   setNick(e.target.value);
                 }}
                 value={nick}
+                active={active}
               />
-            </Edit>
-          ) : (
-            <Profile
-              onSubmit={handleSubmit}
-              src={imagePreviewUrl}
-              name={name}
-              email={email}
-              bitsid={bitsid}
-              address={address}
-              branch={branch}
-              dual={dual}
-              phno={phno}
-              nick={nick}
-            />
-          )}
+          <Button
+            variant="gradient"
+            gradient={{ from: "indigo", to: "cyan" }}
+            sx={{
+              display: "block",
+              margin: "auto",
+              marginTop: "30px",
+            }}
+            onClick={handleSubmit}
+            >
+            {(active==="profile")?"Edit Profile": "Save"}
+          </Button>
+          
         </div>
       </Grid>
     </Grid>
