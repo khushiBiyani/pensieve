@@ -1,15 +1,20 @@
 import { Select, Container, Textarea, Button, Text } from "@mantine/core";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import AuthContext from "../../context/AuthContext";
 import contacts from "../../contacts";
 const emails = contacts.map((contact) => contact.Email);
 
-export default function CreateTest() {
+export default function CreateTest({ requestEmail, clearRequestEmail }) {
   const [targetEmail, setTargetEmail] = useState("");
   const [targetContent, setTargetContent] = useState("");
   const [isSubmitted, setIsSubmitted] = useState("");
   const { user } = useContext(AuthContext);
+
+  if (targetEmail === "" && requestEmail !== "") {
+    setTargetEmail(requestEmail);
+    clearRequestEmail();
+  }
   const handleSubmit = async () => {
     const response = await axios.post(
       "http://localhost:5000/users/createTest",
