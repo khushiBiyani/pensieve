@@ -4,7 +4,18 @@ import { Grid } from "@mui/material";
 import ViewAll from "./ViewAll";
 import ViewRequests from "./ViewRequests";
 import CreateTest from "./createTestimonial";
+import { useEffect, useState } from "react";
 export default function TestForYou() {
+  // requestEmail: if user accepts a request,
+  // then this will be used to redirect to the write testimonial tab
+  const [requestEmail, setRequestEmail] = useState("");
+  const [activeTab, setActiveTab] = useState(1);
+
+  useEffect(() => {
+    if (requestEmail !== "") {
+      setActiveTab(0);
+    }
+  }, [requestEmail]);
   return (
     <Grid container spacing={1}>
       <Grid item xs={0} sm={3} />
@@ -25,18 +36,34 @@ export default function TestForYou() {
           },
         }}
       >
-        <Tabs color="cyan" tabPadding="md" variant="pills" sx={{}}>
+        <Tabs
+          active={activeTab}
+          onTabChange={setActiveTab}
+          color="cyan"
+          tabPadding="md"
+          variant="pills"
+          sx={{}}
+        >
           <Tabs.Tab
             sx={{ paddingLeft: "15px", paddingRight: "15px" }}
             label="Write"
           >
-            <CreateTest />
+            <CreateTest
+              requestEmail={requestEmail}
+              clearRequestEmail={() => {
+                setRequestEmail("");
+              }}
+            />
           </Tabs.Tab>
           <Tabs.Tab
             sx={{ paddingLeft: "15px", paddingRight: "15px" }}
             label="Requests"
           >
-            <ViewRequests />
+            <ViewRequests
+              onAccept={(email) => {
+                setRequestEmail(email);
+              }}
+            />
           </Tabs.Tab>
           <Tabs.Tab
             sx={{ paddingLeft: "15px", paddingRight: "15px" }}

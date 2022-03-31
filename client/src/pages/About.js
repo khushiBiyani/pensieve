@@ -28,7 +28,6 @@ export default function About() {
   const [phno, setPhno] = useState("");
   const [nick, setNick] = useState("");
   const [active, setActive] = useState("profile");
-
   useEffect(() => {
     // emulating the componentDidMount() function
 
