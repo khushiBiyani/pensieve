@@ -26,24 +26,25 @@ export default function CreateTest({ requestEmail, clearRequestEmail }) {
         from: user.Email,
         to: targetEmail,
         content: targetContent,
+        name: user.Name,
       }
     );
     setIsSubmitted(response.data.result);
     setTargetContent("");
 
-    // Update ToRequests array
-    let requestObj = user.ToRequests.find((req) => req.Email === targetEmail);
+    // Update FromRequests array
+    let requestObj = user.FromRequests.find((req) => req.Email === targetEmail);
     if (requestObj) {
       // need to update the context variable
       var updatedUser = user;
-      var index = updatedUser.ToRequests.indexOf(requestObj);
-      updatedUser.ToRequests.splice(index, 1);
+      var index = updatedUser.FromRequests.indexOf(requestObj);
+      updatedUser.FromRequests.splice(index, 1);
 
       // update in database
       const putResponse = await axios.put(
         "http://localhost:5000/users/update/" + user._id,
         {
-          ToRequests: updatedUser.ToRequests,
+          FromRequests: updatedUser.FromRequests,
         }
       );
       setUser(updatedUser);

@@ -22,6 +22,8 @@ var User = new Schema({
     {
       Email: String,
       IsSent: Boolean,
+      Name: String,
+      Message: String,
     },
   ],
   TestimonialsSent: [
@@ -34,6 +36,7 @@ var User = new Schema({
     {
       From: String,
       Content: String,
+      Name: String,
     },
   ],
 });

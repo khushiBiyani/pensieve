@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default function ViewRequests({ onAccept, onReject }) {
   const { user, setUser } = useContext(AuthContext);
-  const [requests, setRequests] = useState(user.ToRequests);
+  const [requests, setRequests] = useState(user.FromRequests);
 
   const handleAccept = (senderEmail) => {
     onAccept(senderEmail);
@@ -15,23 +15,23 @@ export default function ViewRequests({ onAccept, onReject }) {
 
   const handleReject = async (senderEmail) => {
     // console.log("rejecting", senderEmail);
-    // Update ToRequests array
-    let requestObj = user.ToRequests.find((req) => req.Email === senderEmail);
+    // Update FromRequests array
+    let requestObj = user.FromRequests.find((req) => req.Email === senderEmail);
     if (requestObj) {
       // need to update the context variable
       var updatedUser = user;
-      var index = updatedUser.ToRequests.indexOf(requestObj);
-      updatedUser.ToRequests.splice(index, 1);
+      var index = updatedUser.FromRequests.indexOf(requestObj);
+      updatedUser.FromRequests.splice(index, 1);
 
       // update in database
       const putResponse = await axios
         .put("http://localhost:5000/users/update/" + user._id, {
-          ToRequests: updatedUser.ToRequests,
+          FromRequests: updatedUser.FromRequests,
         })
         .then(() => {
           setUser(updatedUser);
           // console.log("updated");
-          setRequests(updatedUser.ToRequests);
+          setRequests(updatedUser.FromRequests);
         });
     }
   };
@@ -49,8 +49,8 @@ export default function ViewRequests({ onAccept, onReject }) {
             <Grid item xs={12} key={request.Email}>
               <RequestCard
                 requestEmail={request.Email}
-                requestName={"Requester's name"}
-                requestNote={"Some cute note."}
+                requestName={request.Name}
+                requestNote={request.Message}
                 handleReject={handleReject}
                 handleAccept={handleAccept}
               />

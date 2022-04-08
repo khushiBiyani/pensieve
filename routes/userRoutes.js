@@ -115,7 +115,7 @@ module.exports = router;
 
 router.route("/createTest").post(async (req, res) => {
   try {
-    const { id, to, from, content } = req.body;
+    const { id, to, from, content, Name } = req.body;
     const user = await User.findById(id);
     const currTest = user.TestimonialsSent;
     if (
@@ -127,22 +127,56 @@ router.route("/createTest").post(async (req, res) => {
     )
       res.send({ result: "Repeated" });
     else {
+      //
       const response = await User.findByIdAndUpdate(id, {
         TestimonialsSent: [...currTest, { To: to, Content: content }],
       });
       const receiver = await User.findOne({ Email: to });
+
+      //Adding the Testimonial to TestimonialsReceived for receiver.
       const existingTest = receiver.TestimonialsReceived;
+      const receiverRequests = receiver.ToRequests;
+
+      // Removing request from receiver's ToRequest if any
+      const newToRequests = receiverRequests.map((x) => {
+        if (x.Email === from) return false;
+        return true;
+      });
+      console.log(Name);
       const response2 = await User.findOneAndUpdate(
         { Email: to },
         {
           TestimonialsReceived: [
             ...existingTest,
-            { From: from, Content: content },
+            { From: from, Content: content, Name: Name },
           ],
+          ToRequests: newToRequests,
         }
       );
+
       res.status(200).send({ result: "Sent" });
     }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(false);
+  }
+});
+
+router.route("/createReq").post(async (req, res) => {
+  try {
+    const { id, from, to, message, name } = req.body;
+    const creator = await User.findById(id);
+    const updatedCreator = await User.findByIdAndUpdate(id, {
+      ToRequests: [...creator.ToRequests, { Email: to, Message: message }],
+    });
+    const receiver = await User.findOne({ Email: to });
+    const updatedReceiver = await User.findOneAndUpdate(receiver._id, {
+      FromRequests: [
+        ...receiver.FromRequests,
+        { Email: from, Name: name, Message: message },
+      ],
+    });
+    res.status(200).send({ result: "Added" });
   } catch (err) {
     console.log(err);
     res.status(500).send(false);
