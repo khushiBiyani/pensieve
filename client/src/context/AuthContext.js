@@ -8,6 +8,7 @@ function AuthContextProvider(props) {
   const [dark, setDark] = useState(true);
   const [currentBatch, setCurrentBatch] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
   const [user, setUser] = useState({
     _id: "",
     Name: "",
@@ -38,6 +39,8 @@ function AuthContextProvider(props) {
         setLoggedIn,
         user,
         setUser,
+        activeTab,
+        setActiveTab
       }}
     >
       {props.children}

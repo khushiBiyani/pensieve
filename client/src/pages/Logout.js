@@ -6,7 +6,7 @@ import AuthContext from "../context/AuthContext";
 
 const Logout = () => {
   const navigate = useNavigate();
-  const { setLoggedIn, setUser } = useContext(AuthContext);
+  const { setLoggedIn, setUser, setActiveTab } = useContext(AuthContext);
   useEffect(() => {
     signOut(auth)
       .then(() => {
@@ -16,6 +16,7 @@ const Logout = () => {
         // An error happened.
       });
     setLoggedIn(false);
+    setActiveTab(0);
     setUser({  
       _id:"",
       Name:"", 

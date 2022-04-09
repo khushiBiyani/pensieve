@@ -1,6 +1,7 @@
 import AuthContext from "../context/AuthContext";
+import React from 'react'
 
-import {Button, Text } from "@mantine/core";import React from 'react'
+import {Button, Text } from "@mantine/core";
 import { Grid } from "@mui/material";
 import { useContext, useState, useEffect } from "react";
 import Address from "../components/About/Address";
