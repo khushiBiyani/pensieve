@@ -170,12 +170,13 @@ router.route("/createReq").post(async (req, res) => {
       ToRequests: [...creator.ToRequests, { Email: to, Message: message }],
     });
     const receiver = await User.findOne({ Email: to });
-    const updatedReceiver = await User.findOneAndUpdate(receiver._id, {
+    const updatedReceiver = await User.findByIdAndUpdate(receiver._id, {
       FromRequests: [
         ...receiver.FromRequests,
         { Email: from, Name: name, Message: message },
       ],
     });
+
     res.status(200).send({ result: "Added" });
   } catch (err) {
     console.log(err);
