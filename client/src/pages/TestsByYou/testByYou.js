@@ -4,13 +4,14 @@ import { Grid } from "@mui/material";
 import ViewAll from "./ViewAll";
 import ViewRequests from "./ViewRequests";
 import CreateTest from "./createTestimonial";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import AuthContext from "../../context/AuthContext";
+
 export default function TestForYou() {
   // requestEmail: if user accepts a request,
   // then this will be used to redirect to the write testimonial tab
   const [requestEmail, setRequestEmail] = useState("");
-  const [activeTab, setActiveTab] = useState(1);
-
+  const {activeTab, setActiveTab } = useContext(AuthContext);
   useEffect(() => {
     if (requestEmail !== "") {
       setActiveTab(0);

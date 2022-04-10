@@ -38,7 +38,21 @@ export default function ViewRequests({ onAccept, onReject }) {
 
   return (
     <Container>
-      <Grid container spacing={2}>
+      <Grid 
+        container 
+        spacing={2}
+        sx={{
+          // marginLeft: "300px",
+          // eslint-disable-next-line no-useless-computed-key
+          ["@media (max-width:960px)"]: {
+            // display: "none",
+            marginLeft: "-70px",
+          },
+          marginTop: "30px",
+          // marginRight: "30px",
+          // maxWidth: "83%",
+        }}
+      >
         {!requests && (
           <Typography sx={{ color: "white", margin: "20px 20px" }}>
             No requests to show.
@@ -46,7 +60,7 @@ export default function ViewRequests({ onAccept, onReject }) {
         )}
         {requests &&
           requests.map((request) => (
-            <Grid item xs={12} key={request.Email}>
+            <Grid item xs={12} key={request.Email} sx={{marginBottom:"20px"}} >
               <RequestCard
                 requestEmail={request.Email}
                 requestName={request.Name}
