@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Select } from "@mantine/core";
+import { Select, MantineProvider } from "@mantine/core";
 
 export default function Dual({
   onChange,
@@ -24,29 +24,31 @@ export default function Dual({
   ];
   return (
     <div>
-      <Select
-          placeholder="Dual"
-          label="Dual"
-          required
-          maxDropdownHeight={300}
-          disabled = {(active==="profile")?true:false}
-          data={data}
-          onChange={onChange}
-          value={value}
-          
-          sx={{
-            width: "15vw",
-            label: { color: "white" },
-            input: { textAlign: "center" },
-            margin: "auto",
-            marginTop: "20px",
-            marginRight: "20px",
-            ["@media (max-width:960px)"]: {
-              width: "20%",
-              margin: "20px 0",
-            },
-          }}
-        />
+      <MantineProvider theme={{ colorScheme: 'dark' }}>
+        <Select
+            placeholder="Dual"
+            label="Dual"
+            required
+            maxDropdownHeight={300}
+            disabled = {(active==="profile")?true:false}
+            data={data}
+            onChange={onChange}
+            value={value}
+            
+            sx={{
+              width: "15vw",
+              label: { color: "white" },
+              input: { textAlign: "center" },
+              margin: "auto",
+              marginTop: "20px",
+              marginRight: "20px",
+              ["@media (max-width:960px)"]: {
+                width: "20%",
+                margin: "20px 0",
+              },
+            }}
+          />
+      </MantineProvider>
     </div>
   );
 }

@@ -1,14 +1,13 @@
 import AuthContext from "../context/AuthContext";
 import React from 'react'
 
-import {Button, Text } from "@mantine/core";
+import {Button, Image, Text } from "@mantine/core";
 import { Grid } from "@mui/material";
 import { useContext, useState, useEffect } from "react";
 import Address from "../components/About/Address";
 import Bitsid from "../components/About/Bitsid";
 import Branch from "../components/About/Branch";
 import Dual from "../components/About/Dual";
-import ImgUpload from "../components/About/ImgUpload";
 import Nick from "../components/About/Nick";
 import Phno from "../components/About/Phno";
 
@@ -84,7 +83,6 @@ export default function About() {
     reader.onloadend = () => {
       setImagePreviewUrl(reader.result); // this is for the actual image
       setFile(e.target.files[0]);
-      // console.log(file);
     };
     reader.readAsDataURL(file);
   };
@@ -94,7 +92,35 @@ export default function About() {
       <Grid item xs={0} sm={3} />
       <Grid item xs={12} md={9}>
         <div className="userDetails" style={{ margin: "4vh 4vh", display:"flex", flexDirection: "column", alignItems:"center" }}>
-              <ImgUpload onChange={photoUpload} src={imagePreviewUrl} />
+              {/* <ImgUpload onChange={photoUpload} src={imagePreviewUrl} /> */}
+              <Image
+                width = {200}
+                height = {200}
+                radius={100}
+                src = {imagePreviewUrl}
+                sx={{padding:"5px", background: "linear-gradient(110deg, blue, #44aeb3)", borderRadius: "50%", marginBottom: "25px"}}
+                /> 
+
+                {active==="edit"?(
+                  <Button
+                      variant="gradient"
+                      size="xs"
+                      gradient={{ from: "indigo", to: "cyan" }}
+                      component="label"
+                      sx={{
+                        display: "block",
+                        marginTop: "15px",
+                        marginBottom: "30px",
+                      }}
+                    >
+                      Change Image
+                      <input
+                        type="file"
+                        onChange={photoUpload}
+                        hidden
+                      />
+                    </Button>):(<></>)}
+                
               <Text size="lg" weight={500} color="white" > Name: {name}</Text>
               <Text size="lg" weight={500} color="white">Email: {email}</Text>
               <div style={{display: "flex", flexDirection: "row"}}>
