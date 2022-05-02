@@ -128,21 +128,24 @@ router.route("/createTest").post(async (req, res) => {
       res.send({ result: "Repeated" });
     else {
       //
-      const response = await User.findByIdAndUpdate(id, {
-        TestimonialsSent: [...currTest, { To: to, Content: content }],
-      });
       const receiver = await User.findOne({ Email: to });
-
+      const response = await User.findByIdAndUpdate(id, {
+        TestimonialsSent: [
+          ...currTest,
+          { To: to, Content: content, Name: receiver.Name },
+        ],
+      });
+      console.log(response);
       //Adding the Testimonial to TestimonialsReceived for receiver.
       const existingTest = receiver.TestimonialsReceived;
       const receiverRequests = receiver.ToRequests;
-
+      // console.log(receiverRequests);
       // Removing request from receiver's ToRequest if any
-      const newToRequests = receiverRequests.map((x) => {
+      const newToRequests = receiverRequests.filter((x) => {
         if (x.Email === from) return false;
         return true;
       });
-      console.log(Name);
+      // console.log(Name);
       const response2 = await User.findOneAndUpdate(
         { Email: to },
         {
@@ -153,7 +156,7 @@ router.route("/createTest").post(async (req, res) => {
           ToRequests: newToRequests,
         }
       );
-
+      // console.log(response2);
       res.status(200).send({ result: "Sent" });
     }
   } catch (err) {
