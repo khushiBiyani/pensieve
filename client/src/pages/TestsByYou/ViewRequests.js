@@ -38,8 +38,8 @@ export default function ViewRequests({ onAccept, onReject }) {
 
   return (
     <Container>
-      <Grid 
-        container 
+      <Grid
+        container
         spacing={2}
         sx={{
           // marginLeft: "300px",
@@ -53,14 +53,19 @@ export default function ViewRequests({ onAccept, onReject }) {
           // maxWidth: "83%",
         }}
       >
-        {!requests && (
+        {requests.length === 0 && (
           <Typography sx={{ color: "white", margin: "20px 20px" }}>
             No requests to show.
           </Typography>
         )}
         {requests &&
           requests.map((request) => (
-            <Grid item xs={12} key={request.Email} sx={{marginBottom:"20px"}} >
+            <Grid
+              item
+              xs={12}
+              key={request.Email}
+              sx={{ marginBottom: "20px" }}
+            >
               <RequestCard
                 requestEmail={request.Email}
                 requestName={request.Name}

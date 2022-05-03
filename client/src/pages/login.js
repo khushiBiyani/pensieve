@@ -11,7 +11,8 @@ import { LoadingOverlay } from "@mantine/core";
 import axios from "axios";
 
 export default function Login() {
-  const { setLoggedIn, user, setUser } = useContext(AuthContext);
+  const { setLoggedIn, user, setUser, setCurrentBatch } =
+    useContext(AuthContext);
   const [overlayVisible, setOverlayVisible] = useState(null);
 
   const onClick = async () => {
@@ -23,6 +24,10 @@ export default function Login() {
         const token = credential.accessToken;
         // The signed-in user.
         const signedInUser = result.user;
+        // console.log(signedInUser);
+        if (signedInUser.email[3] !== "1" && signedInUser.email[4] !== "8") {
+          setCurrentBatch(true);
+        }
         setOverlayVisible(true);
         //setLoggedIn(true);
 
@@ -35,6 +40,7 @@ export default function Login() {
           .then((response) => response.json())
           .then((userDetails) => {
             ID = userDetails._id;
+            // console.log(userDetails);
             if (!ID) {
               const requestOptions = {
                 method: "POST",

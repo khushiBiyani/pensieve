@@ -1,10 +1,10 @@
 import Card from "../../components/Card/Card";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 export default function ViewAll() {
   const { user } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
   return (
     <Grid
       container
@@ -20,6 +20,11 @@ export default function ViewAll() {
         // maxWidth: "83%",
       }}
     >
+      {user.TestimonialsSent.length === 0 && (
+        <Typography sx={{ color: "white", margin: "20px 20px" }}>
+          No requests to show.
+        </Typography>
+      )}
       {user.TestimonialsSent.map((test) => {
         return (
           <Grid item p={2} xs={12} md={6}>

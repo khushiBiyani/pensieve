@@ -12,12 +12,14 @@ import TestByYou from "./pages/TestsByYou/testByYou";
 import About from "./pages/About";
 import RequestTest from "./pages/request";
 import Logout from "./pages/Logout";
+import AdminLogin from "./pages/admin/home";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthContextProvider>
         <Routes>
+          <Route path="/login" element={<AdminLogin />} />
           <Route path="/" element={<App />}>
             <Route path="admin/about" element={<About />} />
             <Route path="admin/photoalbum" element={<PhotoAlbum />} />

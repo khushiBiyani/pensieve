@@ -51,13 +51,13 @@ var currentRoutes = [
     // component: RTLPage,
     layout: "/admin",
   },
-  {
-    path: "/share",
-    name: "Share Link",
-    icon: <i class="fas fa-reply"></i>,
-    // component: RTLPage,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/share",
+  //   name: "Share Link",
+  //   icon: <i class="fas fa-reply"></i>,
+  //   // component: RTLPage,
+  //   layout: "/admin",
+  // },
   {
     path: "/logout",
     name: "Logout",
