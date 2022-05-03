@@ -1,16 +1,19 @@
 import AuthContext from "../context/AuthContext";
 import React from 'react'
 
-import {Button, Text } from "@mantine/core";
+import {Button, Image, Text } from "@mantine/core";
 import { Grid } from "@mui/material";
 import { useContext, useState, useEffect } from "react";
 import Address from "../components/About/Address";
 import Bitsid from "../components/About/Bitsid";
 import Branch from "../components/About/Branch";
 import Dual from "../components/About/Dual";
-import ImgUpload from "../components/About/ImgUpload";
 import Nick from "../components/About/Nick";
 import Phno from "../components/About/Phno";
+
+import AdjustImage from "../components/About/Crop/AdjustImage"
+
+
 
 export default function About() {
   // Get name and email from Authcontext
@@ -19,7 +22,7 @@ export default function About() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [file, setFile] = useState("");
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(
+  const [photoURL, setPhotoURL] = useState(
     "https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true"
   );
   const [bitsid, setBitsid] = useState("");
@@ -29,6 +32,7 @@ export default function About() {
   const [phno, setPhno] = useState("");
   const [nick, setNick] = useState("");
   const [active, setActive] = useState("profile");
+  const [openCrop, setOpenCrop] = useState(false);
   useEffect(() => {
     // emulating the componentDidMount() function
 
@@ -36,7 +40,7 @@ export default function About() {
       // Updating the state variables
       setName(user.Name);
       setEmail(user.Email);
-      setImagePreviewUrl(user.ProfilePic);
+      setPhotoURL(user.ProfilePic);
       setBitsid(user.ID);
       setAddress(user.Address);
       setBranch(user.Branch.substring(0, 2));
@@ -55,7 +59,7 @@ export default function About() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ID: bitsid,
-          ProfilePic: imagePreviewUrl,
+          ProfilePic: photoURL,
           Address: address,
           Branch: branch + dual,
           MobileNumber: phno,
@@ -79,22 +83,55 @@ export default function About() {
 
   const photoUpload = (e) => {
     e.preventDefault();
-    const reader = new FileReader();
+    // const reader = new FileReader();
     const file = e.target.files[0];
-    reader.onloadend = () => {
-      setImagePreviewUrl(reader.result); // this is for the actual image
-      setFile(e.target.files[0]);
-      // console.log(file);
-    };
-    reader.readAsDataURL(file);
+    // reader.onloadend = () => {
+    //   setPhotoURL(reader.result); // this is for the actual image
+    //   setFile(e.target.files[0]);
+    // };
+    // reader.readAsDataURL(file);
+
+    if (file) {
+      setFile(file);
+      setPhotoURL(URL.createObjectURL(file));
+      setOpenCrop(true);
+    }
   };
 
-  return (
+  return !openCrop ?
+    (
     <Grid container spacing={1}>
       <Grid item xs={0} sm={3} />
       <Grid item xs={12} md={9}>
         <div className="userDetails" style={{ margin: "4vh 4vh", display:"flex", flexDirection: "column", alignItems:"center" }}>
-              <ImgUpload onChange={photoUpload} src={imagePreviewUrl} />
+            <Image
+              width = {200}
+              height = {200}
+              radius={100}
+              src = {photoURL}
+              sx={{padding:"5px", background: "linear-gradient(110deg, blue, #44aeb3)", borderRadius: "50%", marginBottom: "25px"}}
+              /> 
+
+              {active==="edit"?(
+                <Button
+                    variant="gradient"
+                    size="xs"
+                    gradient={{ from: "indigo", to: "cyan" }}
+                    component="label"
+                    sx={{
+                      display: "block",
+                      marginBottom:"30px"
+                    }}
+                  >
+                    Change Image
+                    <input
+                      type="file"
+                      onChange={photoUpload}
+                      hidden
+                    />
+                  </Button>)
+              :(<></>)}
+
               <Text size="lg" weight={500} color="white" > Name: {name}</Text>
               <Text size="lg" weight={500} color="white">Email: {email}</Text>
               <div style={{display: "flex", flexDirection: "row"}}>
@@ -163,5 +200,6 @@ export default function About() {
         </div>
       </Grid>
     </Grid>
-  );
+  ):
+    (<AdjustImage {...{ openCrop, photoURL, setOpenCrop, setPhotoURL, setFile }} />);
 }
