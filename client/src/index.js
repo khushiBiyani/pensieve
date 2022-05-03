@@ -19,7 +19,7 @@ ReactDOM.render(
     <BrowserRouter>
       <AuthContextProvider>
         <Routes>
-          <Route path="/login" element={<AdminLogin />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/" element={<App />}>
             <Route path="admin/about" element={<About />} />
             <Route path="admin/photoalbum" element={<PhotoAlbum />} />

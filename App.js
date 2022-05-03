@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const path = require("path");
 dotenv.config();
 
 // app.use(
@@ -35,6 +36,11 @@ db.once("open", function () {
 
 app.use(express.json({ limit: "50mb" }));
 app.use("/users", require("./routes/userRoutes"));
+
+app.use(express.static(path.join(__dirname, "client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
 
 app.listen(5000, () => {
   console.log("Server is running at port 5000");

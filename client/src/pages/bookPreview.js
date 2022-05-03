@@ -119,7 +119,7 @@ const user = {
 
 export default function Preview() {
   const { user } = useContext(AuthContext);
-  //   console.log
+  // console.log(user);
   return (
     <Container style={{ width: "70%", height: "80vh" }}>
       <PDFViewer
@@ -133,7 +133,7 @@ export default function Preview() {
           <Page size="A4" style={styles.page}>
             <View style={styles.left_section}>
               <View style={styles.profile_container}>
-                {/* <Image style={styles.profile_img} src={user.ProfilePic} /> */}
+                <Image style={styles.profile_img} src={user.ProfilePic} />
 
                 <View
                   style={{
