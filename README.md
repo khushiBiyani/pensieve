@@ -1,6 +1,6 @@
 # pensieve
 
-<img width="621" alt="image" src="https://github.com/khushiBiyani/pensieve/assets/93194800/4e5c0f47-02e0-4aad-bfce-0f6afbe42304">
+<img width="420" alt="image" src="https://github.com/khushiBiyani/pensieve/assets/93194800/4e5c0f47-02e0-4aad-bfce-0f6afbe42304">
 
 <img width="420" alt="image" src="https://github.com/khushiBiyani/pensieve/assets/93194800/711a3a8d-a9ff-4fae-ba97-24213207f3b4">
 
